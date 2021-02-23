@@ -1,0 +1,4 @@
+# This file is expected by Heroku.
+# going with the prod version to test soon 21/2/21
+
+-r requirements/production.txt
