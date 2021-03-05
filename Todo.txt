@@ -1,1 +1,64 @@
 done Config interpreter
+
+def get_pairs(in_lst_choices, in_int_selections, in_lst_already_chosen):
+    """
+    in_lst_choices : pairs to pick from
+    in_int_selections: number of combinations to add
+    in_lst_already_chosen : combination pairs already selected
+    """
+    combinations = in_lst_already_chosen
+    permutations = in_lst_choices
+    individuals = get_individuals(in_lst_already_chosen)
+    its = []
+    while len(combinations) < in_int_selections:
+        pick = random.choice(permutations)
+        its = pick.split('|')
+        print(f'the new selection {its}')
+        if its[0] not in individuals and its[1] not in individuals:
+            individuals.append(its[0])
+            individuals.append(its[1])
+            combinations.append(pick)
+            print(f'individuals are now {individuals}')
+    print(f' final combination is = {combinations}')
+    return 0
+
+def get_individuals(in_lst_combinations, in_lst_members):
+    individuals = in_lst_members
+    for pair in in_lst_combinations:
+        members = pair.split('|')
+        individuals.append(members[0])
+        individuals.append(members[1])
+    return individuals 
+
+import random
+#now to select permutation items
+last_order = 0 #to use for what?
+# print(divo[0])
+combinations = []
+individuals = []
+its = []
+while len(combinations) < divo[0]:
+    pick = random.choice(permutations)
+    its = pick.split('|')
+    print(f'the new selection {its}')
+    if its[0] not in individuals and its[1] not in individuals:
+        individuals.append(its[0])
+        individuals.append(its[1])
+        combinations.append(pick)
+        print(f'individuals are now {individuals}')
+print(f' final combination is = {combinations}')
+
+members = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+divo = divmod(len(members), 2)
+print(members)
+print(divo)
+#
+original = members
+permutations = []
+while len(members) > 1:
+    for m in members[1:]:
+        #print(m)
+        permutations.append(str(members[0]) + '|' + str(m))
+    members.pop(0)
+
+print(permutations)
