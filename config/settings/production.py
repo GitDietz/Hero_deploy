@@ -1,3 +1,4 @@
+import os
 from .base import *  # noqa
 
 # GENERAL
@@ -78,7 +79,7 @@ TEMPLATES[-1]["OPTIONS"]["loaders"] = [  # type: ignore[index] # noqa F405
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
-DEFAULT_FROM_EMAIL = "ASSC <noreply@asharpsystems.com>"
+DEFAULT_FROM_EMAIL = "asharpsystems@gmail.com"
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
@@ -96,11 +97,13 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 # https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
 # https://anymail.readthedocs.io/en/stable/esps/sendgrid/
-EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# "anymail.backends.sendgrid.EmailBackend"
+print(os.environ.get('MAILER'))
 ANYMAIL = {
-    "SENDGRID_API_KEY": 'key',
+    "SENDGRID_API_KEY": os.environ.get('MAILER'),
     "SENDGRID_GENERATE_MESSAGE_ID": config("SENDGRID_GENERATE_MESSAGE_ID", cast=bool),
-    "SENDGRID_MERGE_FIELD_FORMAT": config("SENDGRID_MERGE_FIELD_FORMAT", cast=bool),
+    "SENDGRID_MERGE_FIELD_FORMAT": "-{}-",
     "SENDGRID_API_URL": "https://api.sendgrid.com/v3/",
 }
 

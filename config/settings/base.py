@@ -80,10 +80,11 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "hero.users.apps.UsersConfig",
     # Your stuff: custom apps go here
+    'coffee',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
+3
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules

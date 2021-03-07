@@ -8,13 +8,15 @@ from django.views.generic import TemplateView
 from .views import current_datetime, time #, task_list
 
 urlpatterns = [
+    # Django Admin, use {% url 'admin:index' %}
+    path(settings.ADMIN_URL, admin.site.urls),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
-    # Django Admin, use {% url 'admin:index' %}
-    path(settings.ADMIN_URL, admin.site.urls),
+
     # User management
+    path('coffee/', include('coffee.urls', namespace='coffee')),
     path('time', current_datetime, name="current_datetime"),
     path('nicetime', time, name="time"),
     path("users/", include("hero.users.urls", namespace="users")),
