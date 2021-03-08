@@ -28,6 +28,20 @@ def make_permutations(request):
     return permutations
 
 
+def get_individuals():
+    """
+    Using the passed in list of combinations get the list of individual ids
+    :return:
+    """
+    # while len(combinations) < divo[0]:
+#     pick = random.choice(permutations)
+#     its = pick.split('|')
+#     print(f'the new selection {its}')
+#     if its[0] not in individuals and its[1] not in individuals:
+#         individuals.append(its[0])
+#         individuals.append(its[1])
+#         combinations.append(pick)
+
 def member_list(request):
     objects = Member.objects.all()
     template = 'member_list.html'
@@ -56,3 +70,8 @@ def combination_list(request):
         'objects': objects,
     }
     return render(request, template, context)
+
+
+def meet_test(request):
+    thing = Meetup.active_individuals()
+    other = 8

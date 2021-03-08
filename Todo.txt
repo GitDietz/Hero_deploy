@@ -62,3 +62,8 @@ while len(members) > 1:
     members.pop(0)
 
 print(permutations)
+
+Process:
+starting point=have a set of combinations that are active to use
+get combination list
+how many active members are there - this will drive the number of combos to create
