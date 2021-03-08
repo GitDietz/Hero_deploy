@@ -42,4 +42,16 @@ class Meetup(models.Model):
     active = models.BooleanField(null=False, default=True)
     objects = MeetupManager()
 
+    @property
+    def active_individuals(self):
+        self.active
+        while len(combinations) < divo[0]:
+            pick = random.choice(permutations)
+            its = pick.split('|')
+            print(f'the new selection {its}')
+            if its[0] not in individuals and its[1] not in individuals:
+                individuals.append(its[0])
+                individuals.append(its[1])
+                combinations.append(pick)
+        return None
 

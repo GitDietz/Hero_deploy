@@ -29,14 +29,30 @@ def make_permutations(request):
 
 
 def member_list(request):
-    members = Member.objects.all()
-    template = ''
-    pass
+    objects = Member.objects.all()
+    template = 'member_list.html'
+    context = {
+        'title': 'Member list',
+        'objects': objects,
+    }
+    return render(request, template, context)
 
 
 def member_new(request):
     pass
 
 
-def member_edit(request):
+def member_edit(request, pk):
+    member = Member.objects.get(pk=pk)
+
     pass
+
+
+def combination_list(request):
+    objects = Meetup.objects.all()
+    template = 'combination_list.html'
+    context = {
+        'title': 'Meetup list',
+        'objects': objects,
+    }
+    return render(request, template, context)
