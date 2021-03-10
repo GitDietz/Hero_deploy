@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  {{ time }}
+  {% for obj in objects %}
+    obj.desc<br>
+    obj.created
+  {% empty %}
+  No list
+  {% endfor %}
+{% endblock content %}
