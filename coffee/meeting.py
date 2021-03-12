@@ -209,7 +209,8 @@ def test():
                                                                                         local_lis_individuals)
             planned_mtgs.extend(local_lis_mtgs)
             meetings_found = len(planned_mtgs)
-            meetings_set =+ meetings_found
+            meetings_set += meetings_found
+            i += 1
 
         print(f'meetings found {planned_mtgs}, all up {meetings_found}')
         local_int_success, local_str_error, local_lst_meetings = update_meetings(planned_mtgs)
