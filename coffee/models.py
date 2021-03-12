@@ -52,6 +52,18 @@ class Meetup(models.Model):
     active = models.BooleanField(null=False, default=True)
     objects = MeetupManager()
 
+    def increment(self):
+        self.meetings += 1
+        self.save()
+        return 0
+
+    def members(self):
+        m = []
+        pair = self.combination.split('|')
+        m.append(pair[0])
+        m.append(pair[1])
+        return m
+
     @staticmethod
     def highest_mtgs():
         hm = Meetup.objects.active().order_by(models.F('meetings')).last()
