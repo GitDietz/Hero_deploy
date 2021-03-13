@@ -1,12 +1,14 @@
-import random
+import logging
 
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import connection
 from django.shortcuts import render, redirect
 
 from .models import Meetup, Member
 from .meeting import test
 
+logger = logging.getLogger(__name__)
 
 def member_list(request):
     objects = Member.objects.all()
@@ -23,9 +25,16 @@ def member_new(request):
 
 
 def member_edit(request, pk):
-    member = Member.objects.get(pk=pk)
-
-    pass
+    template = 'member.html'
+    try:
+        member = Member.objects.get(pk=pk)
+        context = {
+            'title': 'Edit the member detail',
+            'object': member,
+        }
+        return render(request, template, context)
+    except ObjectDoesNotExist:
+        redirect('member_list')
 
 
 def combination_list(request):
@@ -41,12 +50,7 @@ def combination_list(request):
 
 def meet_test(request):
     """
-    work out the logic for the meeting schedule
-    get those combinations that are 2nd highest allocation, from them create
-    meetings to satisfy the number to set.
-    if the 2nd highest list < required just allocate them and then create the additional
-    :param request:
-    :return:
+
     """
     result = test()
 
