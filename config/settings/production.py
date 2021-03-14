@@ -1,6 +1,7 @@
 import os
 from .base import *  # noqa
 
+
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
@@ -99,7 +100,8 @@ INSTALLED_APPS += ["anymail"]  # noqa F405
 # https://anymail.readthedocs.io/en/stable/esps/sendgrid/
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # "anymail.backends.sendgrid.EmailBackend"
-print(os.environ.get('MAILER'))
+if not os.environ.get('MAILER'):
+    print('No Mail environ value')
 ANYMAIL = {
     "SENDGRID_API_KEY": os.environ.get('MAILER'),
     "SENDGRID_GENERATE_MESSAGE_ID": config("SENDGRID_GENERATE_MESSAGE_ID", cast=bool),

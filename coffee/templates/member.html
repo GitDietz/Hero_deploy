@@ -3,20 +3,29 @@
 {% block content %}
 
 <h1>{{ title }}</h1>
-{% if objects %}
-    {% for obj in objects %}
-        <div class="row p-1 mb-2 bg-light text-dark">
-            <div class="col-md-8 col-xs-8">
-                <a href="#">{{ obj.full_name }}</a>
-                <!-- {{ obj.get_absolute_url }} -->
+    <p>
+    <form method='POST' action="" >
+        {% csrf_token %}
+        {{ form|crispy }} <br/>
+        <input type='submit' class="btn btn-secondary" value = 'Submit'>
+
+     {% if form.errors %}
+     {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
             </div>
-            <div class="col-md-4 col-xs-4">
-                {{ obj.active }}
-            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
         </div>
     {% endfor %}
-{% else %}
-    <p>No list yet!</p>
-{% endif %}
+    {% endif %}
+
+    </form>
+    </p>
+
 
 {% endblock content %}

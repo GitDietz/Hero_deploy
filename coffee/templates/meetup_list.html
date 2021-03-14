@@ -6,13 +6,13 @@
 {% if objects %}
     {% for obj in objects %}
         <div class="row p-1 mb-2 bg-light text-dark">
+            <div class="col-md-1 col-xs-1">
+                {{ obj.recorded }}
+            </div>
             <div class="col-md-8 col-xs-8">
-                <a href="{% url 'coffee:member_list' %}">{{ obj.full_name }}</a>
-                <!-- {{ obj.get_absolute_url }} -->
+                {{ obj.detail }}
             </div>
-            <div class="col-md-4 col-xs-4">
-                {{ obj.active }}
-            </div>
+
         </div>
     {% endfor %}
 {% else %}

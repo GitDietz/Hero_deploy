@@ -33,10 +33,20 @@ class MeetupManager(models.Manager):
         return qs
 
 
+class RecordManager(models.Manager):
+    def all(self):
+        qs = super(RecordManager, self).all()
+        return qs
+
+    def last(self):
+        qs = super(RecordManager, self).all().order_by('pk').last()
+        return qs
+
+
 class Member(models.Model):
     full_name = models.CharField(max_length=300, blank=False, null=False, unique=True)
     active = models.BooleanField(null=False, default=True)
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
     objects = MemberManager()
 
     @staticmethod
@@ -45,6 +55,7 @@ class Member(models.Model):
         active_members = Member.objects.active().count()
         meets = active_members // 2
         return meets
+
 
 class Meetup(models.Model):
     combination = models.CharField(max_length=10, blank=False, null=False, unique=True)
@@ -74,19 +85,8 @@ class Meetup(models.Model):
         nhm = Meetup.objects.active().order_by(models.F('meetings')).first()
         return nhm.meetings
 
-    # @staticmethod
-    # def active_individuals():
-    #     something = list(Meetup.objects.active().values_list('combination', flat=True))
-    #
-    #     stuff = list(Meetup.combination)
-    #     return stuff
-        # while len(combinations) < divo[0]:
-        #     pick = random.choice(permutations)
-        #     its = pick.split('|')
-        #     print(f'the new selection {its}')
-        #     if its[0] not in individuals and its[1] not in individuals:
-        #         individuals.append(its[0])
-        #         individuals.append(its[1])
-        #         combinations.append(pick)
-        # return None
 
+class MeetRecord(models.Model):
+    recorded = models.DateField(auto_now_add=True)
+    detail = models.CharField(max_length=300, blank=False, null=False)
+    # objects = RecordManager()

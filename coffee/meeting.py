@@ -2,7 +2,7 @@ import logging
 import random
 from django.db import connection
 
-from coffee.models import Meetup, Member
+from coffee.models import Meetup, Member, MeetRecord
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +24,21 @@ def make_permutations():
     new_objects = Meetup.objects.count()
     logger.info(f'Meetups created {new_objects}')
     return permutations
+
+
+def record_meetup(in_lis_meeting_names):
+    local_int_success = 1
+    local_str_error = ''
+    combined = ''
+    try:
+        for item in in_lis_meeting_names:
+            combined += item + '\n'
+        MeetRecord.objects.create(detail=combined)
+        local_int_success = 0
+    except Exception as e:
+        local_str_error = f'{e}'
+    finally:
+        return local_int_success, local_str_error
 
 
 def update_meetings(in_lis_mtg):
@@ -172,7 +187,7 @@ def test():
 
         logger.info('meetings found {planned_mtgs}, all up {meetings_found}')
         local_int_success, local_str_error, local_lst_meetings = update_meetings(planned_mtgs)
-
+        local_int_success, local_str_error = record_meetup(local_lst_meetings)
     except Exception as e:
         logger.error(f'Error in test : {e}')
     finally:
